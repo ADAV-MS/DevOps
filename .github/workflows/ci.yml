@@ -55,16 +55,28 @@ jobs:
           exit-code: '1'
           format: 'table'
 
-  # Stage 4 : Deploy Staging
-  deploy-staging:
+  # Stage 4 : Test de l'action composite locale
+  test-composite-action:
     needs: [build, security]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test setup-tools action
+        uses: ./.github/actions/setup-tools
+        with:
+          install-terraform: 'true'
+          terraform-version: '1.7.0'
+
+  # Stage 5 : Deploy Staging
+  deploy-staging:
+    needs: [build, security, test-composite-action]
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
     runs-on: ubuntu-latest
     environment: staging
     steps:
       - run: echo "Deploying to staging environment..."
 
-  # Stage 5 : Deploy Production
+  # Stage 6 : Deploy Production
   deploy-production:
     needs: deploy-staging
     if: github.ref == 'refs/heads/main'
