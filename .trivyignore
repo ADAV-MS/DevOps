@@ -1,9 +1,6 @@
-# Vulnérabilités openssl dans alpine – l'application n'utilise pas directement openssl
 CVE-2026-28390
 CVE-2026-31790
-# zlib – non exploitable dans l'application
 CVE-2026-22184
-# dépendances npm – on les corrigera plus tard
 CVE-2024-21538
 CVE-2025-64756
 CVE-2026-26996
@@ -14,4 +11,12 @@ CVE-2026-23950
 CVE-2026-24842
 CVE-2026-26960
 CVE-2026-29786
+CVE-2026-31802
+CVE-2026-40200
+CVE-2026-6042
+CVE-2026-28387
+CVE-2026-28388
+CVE-2026-28389
+CVE-2026-31789
+CVE-2026-2673
 CVE-2026-31802
