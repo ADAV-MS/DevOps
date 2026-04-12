@@ -1,0 +1,16 @@
+---
+- name: Configuration commune
+  hosts: all
+  become: false
+  roles:
+    - base
+- name: Serveurs web
+  hosts: webservers
+  become: false
+  roles:
+    - nginx
+- name: Serveurs d'application
+  hosts: appservers
+  become: false
+  roles:
+    - app

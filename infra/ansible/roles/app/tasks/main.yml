@@ -1,0 +1,4 @@
+---
+- name: Placeholder pour rôle app
+  debug:
+    msg: "Rôle app à implémenter"
