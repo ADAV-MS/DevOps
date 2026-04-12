@@ -1,0 +1,46 @@
+replicaCount: 3
+
+image:
+  repository: docker.io/library/devops-app
+  tag: "1.0.0"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+resources:
+  limits:
+    cpu: 250m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+config:
+  NODE_ENV: "production"
+  LOG_LEVEL: "info"
+  APP_PORT: "3000"
+  DB_HOST: "postgres-svc"
+  DB_PORT: "5432"
+  DB_NAME: "appdb"
+
+probes:
+  readiness:
+    path: /health
+    initialDelaySeconds: 5
+    periodSeconds: 10
+  liveness:
+    path: /health
+    initialDelaySeconds: 15
+    periodSeconds: 20
+
+autoscaling:
+  enabled: false
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 70
+
+secrets:
+  dbUser: appuser
+  dbPassword: supersecret123
