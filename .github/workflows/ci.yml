@@ -49,26 +49,26 @@ jobs:
       - name: Scan dependencies with Trivy
         uses: aquasecurity/trivy-action@0.35.0
         with:
-          scan-type: "fs"
-          trivyignore: .trivyignore
-          scan-ref: "app/"
-          severity: "HIGH,CRITICAL"
-          exit-code: "1"
-          format: "table"
+          scan-type: 'fs'
+          scan-ref: 'app/'
+          severity: 'HIGH,CRITICAL'
+          exit-code: '1'
+          format: 'table'
+      - name: Build image for scanning
+        run: docker build -t devops-app:scan app/
       - name: Scan Docker image
         uses: aquasecurity/trivy-action@0.35.0
         with:
-          image-ref: "devops-app:scan"
-          severity: "HIGH,CRITICAL"
-          exit-code: "0" # ← change 1 en 0
-          trivyignore: .trivyignore
-          format: "sarif"
-          output: "trivy-results.sarif"
-      #      - name: Upload Trivy scan results
-      #        uses: github/codeql-action/upload-sarif@v3
-      #        if: always()
-      #        with:
-      #          sarif_file: 'trivy-results.sarif'
+          image-ref: 'devops-app:scan'
+          severity: 'HIGH,CRITICAL'
+          exit-code: '1'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+      - name: Upload Trivy scan results
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
       - name: Scan IaC with Trivy
         uses: aquasecurity/trivy-action@0.35.0
         with:
