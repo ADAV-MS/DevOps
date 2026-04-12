@@ -1,0 +1,19 @@
+# Terraform
+**/.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+!dev.tfvars
+!prod.tfvars
+terraform.tfstate
+terraform.tfstate.lock.info
+
+# Node (à la racine, mais on garde celui dans app/)
+package-lock.json
+
+# Binaires locaux
+bin/
+
+# IDE
+.vscode/
+.idea/
